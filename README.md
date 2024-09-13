@@ -11,8 +11,8 @@ HaS Stream 5 is a cource and is meant to enhance skills in solving various Data 
 
 ```json
 /algorithms
-   /attempt-list
-      README.md        <- список задачек, которые нужно решить (ATTEMPT LIST)
+   /additional-list
+      README.md        <- список задачек, которые нужно решить дополнительно (ADDITIONAL LIST)
    /retry-list
       README.md        <- список задачек, удаляем когда решили (RETRY LIST)
    /problems

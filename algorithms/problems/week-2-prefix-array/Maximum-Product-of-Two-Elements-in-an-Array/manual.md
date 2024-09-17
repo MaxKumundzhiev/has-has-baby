@@ -1,7 +1,7 @@
 **https://leetcode.com/problems/maximum-product-of-two-elements-in-an-array/**
 
 ## правильное решени
-"""json
+```python
 class Solution:
     def maxProduct(self, nums: List[int]) -> int:
         max_1, max_2 = max(nums[0], nums[1]), min(nums[0], nums[1])
@@ -19,7 +19,7 @@ class Solution:
             else:
                 continue
         return (max_1-1)*(max_2-1)
-"""
+```
 
 ## оценку по времени и памяти
 - Time: O(n)

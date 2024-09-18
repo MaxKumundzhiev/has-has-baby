@@ -8,4 +8,6 @@
 | Date                      | Topic           | Link
 | :---:                     | :---:           | :---:
 | 17th September 2024       | Arrays          |  Maximum Product of Two Elements in an Array
+| 18th September 2024       | Arrays          |  Is Array Monotonic Increasing or Decreasing
+| 18th September 2024       | Arrays          |  Range Sum Query Immutable 
 

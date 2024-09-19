@@ -51,9 +51,6 @@ class Solution:
         for value, exists in hash_table.items():
             if exists is False:
                 return value
-        
-            
-
 ```
 
 ## оценку по времени и памяти

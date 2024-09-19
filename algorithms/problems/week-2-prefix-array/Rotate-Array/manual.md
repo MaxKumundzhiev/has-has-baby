@@ -9,15 +9,8 @@ class Solution:
         Do not return anything, modify nums in-place instead.
         """
         length, shift = len(nums), k
-        shiftLength = abs(length - shift)
-
-        if shiftLength == length:
-            return
-
-        if shiftLength > length:
-            shift -= length
-           
-        boundary = length-shift
+        shift_length = shift % length
+        boundary = length - shift_length
         nums[:] = nums[boundary:] + nums[:boundary]
 ```
 

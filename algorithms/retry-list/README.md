@@ -11,4 +11,6 @@
 | 18th September 2024       | Arrays          |  Is Array Monotonic Increasing or Decreasing
 | 18th September 2024       | Arrays          |  Range Sum Query Immutable
 | 19th September 2024       | Arrays          |  Rotate Array
+| 21th September 2024       | Arrays          |  Minimum Difference Between Highest And Lowest of K Scores
+
 

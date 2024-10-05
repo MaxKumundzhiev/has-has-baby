@@ -16,7 +16,7 @@ class Solution:
         current = dummy = ListNode()
         up, down = list1, list2
         while up and down:               
-            if up.val < down.val:
+            if up.val <= down.val:
                 current.next = up
                 up, current = up.next, up
             else:

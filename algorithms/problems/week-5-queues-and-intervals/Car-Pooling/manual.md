@@ -17,11 +17,34 @@ class Solution:
                 drop += 1
                 continue
             pick += 1
-            
+
             if capacity < 0:
                 return False
             
         return capacity >= 0
+```
+OR
+```python
+class Solution:
+    def carPooling(self, trips: List[List[int]], capacity: int) -> bool:
+        events = []
+        startEventType, endEventType = +1, -1
+        for idx in range(len(trips)):
+            passengers, start, end = trips[idx]
+            events.append([start, passengers, startEventType])
+            events.append([end, passengers, endEventType])
+        events.sort()
+
+        currentCapacity = 0
+        for event in events:
+            _, passengers, eventType = event
+            if eventType == startEventType:
+                currentCapacity += passengers
+            else:
+                currentCapacity -= passengers
+            if currentCapacity > capacity:
+                return False
+        return True
 ```
 
 ## оценку по времени и памяти

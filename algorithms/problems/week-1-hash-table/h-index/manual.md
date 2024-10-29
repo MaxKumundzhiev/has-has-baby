@@ -1,4 +1,4 @@
-****
+**https://leetcode.com/problems/h-index/description/**
 
 ## правильное решени
 ```python
@@ -21,8 +21,8 @@ class Solution:
 ```
 
 ## оценку по времени и памяти
-- Time  O()
-- Space O()
+- Time  O(n)
+- Space O(n)
 
 ## путь по которому вы пришли к решению
 Разбор

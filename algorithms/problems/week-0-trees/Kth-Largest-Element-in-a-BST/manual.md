@@ -13,14 +13,14 @@ class Solution:
         def inorder(node: TreeNode) -> int:
             if not node:
                 return
-            result = inorder(node.right)
+            result = self.inorder(node.left)
             if result is not None:
                 return result
             nonlocal k
             k -= 1
             if k == 0:
                 return node.val
-            return inorder(node.left)
+            return self.inorder(node.right)
         return inorder(root)
 ```
 

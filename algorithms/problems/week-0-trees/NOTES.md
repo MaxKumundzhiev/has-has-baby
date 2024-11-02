@@ -52,3 +52,6 @@ inorder traversal
  - AVL Trees
 
 ## Lowest Common Ancestor (LCA)
+Существуют различные алгоритмы рещения `поиска наименьшего общего предка`. 
+Мы будем использовать `Эйлеровый обход + range minimum query` метод.
+

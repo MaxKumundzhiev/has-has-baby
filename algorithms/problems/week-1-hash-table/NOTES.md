@@ -45,6 +45,8 @@ A hash function is any function that can be used to map data of arbitrary size t
     - проверка на анаграмму
     - поиск анаграммы
 5. скользяшее окно
+6. валидный палиндром (перестановки)
+    - свойство палиндрома - количество нечетных букв <= 1 - иначе не палиндром
 
 ## QA section
 ### general

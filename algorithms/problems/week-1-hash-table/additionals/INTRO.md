@@ -55,11 +55,15 @@ idx     key     value
 ## Collision resolution methods (2 most popular)
 - separate chaining
 ```text
-deals with hash collisions by maintaining a data structure (usually a linked list) to hold all the different values which hashed to a particular value
+deals with hash collisions by maintaining a data structure
+ (usually a linked list) to hold all the different values
+  which hashed to a particular value
 ``` 
 - open addressing
 ```text
-deals with hash collisions by finiding another place within the hash table for the object to go by offsetting it from the position to which it is hashed
+deals with hash collisions by finiding another place 
+within the hash table for the object to go by offsetting it
+ from the position to which it is hashed
 ``` 
 
 ## Complexity analysis

@@ -3,7 +3,7 @@
 ## What is Hash Table and Hash Function
 - A hash table is a data structure providing a mapping from keys to values by technique called hashing.
 - A hash function H(x) is a function that maps a key `x` to a whole number in a fixed range.
-```json
+```text
 Ideally, we would like to have a very fast insertion, lookup and removal time for the data we are placing within our hash table.
 
 Remarakbly, we can achieve all this in O(1)* time using a hash function as the way to index into hash table.
@@ -17,19 +17,19 @@ Remarakbly, we can achieve all this in O(1)* time using a hash function as the w
 
 ## Properties of Hash Function
 1. if `H(x) = H(y)`, then objects `x` and `y` `might be equal`, but if `H(x) != H(y)`, then objects are `certainly` not equal.
-```json
+```text
 Q: How can we speed up this to our advantage to speedup objects comparison?
 A: This means that instead of comparing x and y directly, a smarter appraoch is to compare their hash values, and only if they equal, we need to explicetly compare their values.
 ```
 2. a hash function `H(x)` must be `deterministic`
-```json
+```text
 this means if H(x) = y it always must produce y
 ```
 3. we try to uniform hash functions to minimize the number of `hash collisions`
 
 ## How does a Hash Table Work
 Think of a hash table as an `indexable` block of memory (an array) and we can only access its entries using the value given to us by our hash function H(x).
-```
+```text
 Assume a hash function H(x) = x^2 + 3 mod 10
 ** result of hash function is an index where we will insert a key:value pair
 

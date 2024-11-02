@@ -50,3 +50,5 @@ inorder traversal
 ## Существуют алгоритмы балансировки деревьев
  - Red Black Trees
  - AVL Trees
+
+## Lowest Common Ancestor (LCA)

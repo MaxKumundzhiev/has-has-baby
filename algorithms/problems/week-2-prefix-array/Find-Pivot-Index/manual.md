@@ -1,7 +1,10 @@
+
+
 **https://leetcode.com/problems/find-pivot-index/description/**
 
 ## правильное решени
 ```python
+# memory optimized solution
 class Solution:
     def pivotIndex(self, nums: List[int]) -> int:
         totalSum = sum(nums)
@@ -14,6 +17,9 @@ class Solution:
             else:
                 leftSum += currentValue
         return -1
+
+# acceptable solution
+
 ```
 
 ## оценку по времени и памяти

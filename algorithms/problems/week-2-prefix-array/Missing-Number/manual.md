@@ -51,6 +51,18 @@ class Solution:
         for value, exists in hash_table.items():
             if exists is False:
                 return value
+
+# Optimal solution for Time O(n) and Space O(1)
+class Solution:
+    def missingNumber(self, nums: List[int]) -> int:
+        length_ = len(nums)
+        currentSum = 0
+        for num in nums:
+            currentSum += num
+        totalSum = 0
+        for num in range(length_+1):
+            totalSum += num
+        return totalSum - currentSum
 ```
 
 ## оценку по времени и памяти
@@ -64,6 +76,9 @@ class Solution:
 
 
 ## идея
-Идея оптимального решения в том, чтобы рабоать с суммой ренджа (взятого на основе длины инпута).
-Когда мы знаем общую сумму и сумму интервала от инпута, мы можем просто вычесть одного их другого - разница это и будет пропущенный элеменет.
+Employ total sum and current sum and find their difference
+- find the len of array - we understand excpected maxValue in array
+- count expected totalSum
+- count currentSum
+- substract totalSum from currentSum
 

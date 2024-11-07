@@ -1,5 +1,5 @@
 
-![Uploading Screenshot 2024-11-07 at 22.32.48.png…]()
+
 
 # Types of interactions within classes
 1. Inheritance

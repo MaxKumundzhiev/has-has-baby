@@ -4,21 +4,15 @@
 ```python
 class Solution:
     def maxProduct(self, nums: List[int]) -> int:
-        max_1, max_2 = max(nums[0], nums[1]), min(nums[0], nums[1])
-    
-        if len(nums) == 2:
-            return (max_1-1)*(max_2-1)
-    
-        for idx in range(2, len(nums)):
-            value = nums[idx]
-            if value > max_1:
-                max_2 = max_1
-                max_1 = value
-            elif max_2 < value <= max_1:
-                max_2 = value
-            else:
-                continue
-        return (max_1-1)*(max_2-1)
+        maxVal1, maxVal2 = 0, 0
+        for num in nums:
+            if num > maxVal1:
+                maxVal2 = maxVal1
+                maxVal1 = num
+            elif maxVal1 >= num > maxVal2:
+                maxVal2 = num
+        product = (maxVal1-1)*(maxVal2-1)
+        return product
 ```
 
 ## оценку по времени и памяти

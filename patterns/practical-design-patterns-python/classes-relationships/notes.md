@@ -1,4 +1,7 @@
 
+![Screenshot 2024-11-07 at 22 34 52](https://github.com/user-attachments/assets/015f2b2a-2d38-4b5e-98ac-4414ec18d183)
+
+
 # Types of interactions within classes
 1. Inheritance
 2. Assosiation

@@ -69,4 +69,5 @@ if __name__ == "__main__":
     company.hire_employee(jonh, "developer")
     company.hire_employee(mike, "analyst")
     company.hire_employee(lily, "qa")
+
     company.liquidate() # company is deleted, but people still exists (aggregation property)

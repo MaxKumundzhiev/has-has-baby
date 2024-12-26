@@ -24,11 +24,41 @@ class Solution:
         return inorder(root)
 ```
 
+```python
+class Solution:
+    def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
+        counter = k
+        result = None
+
+        def traverse(node):
+            nonlocal counter, result  # Use nonlocal to access variables from the outer scope
+            if not node or result is not None:
+                return
+
+            # Inorder traversal: left -> node -> right
+            traverse(node.left)
+
+            # Decrement the counter when visiting the current node
+            counter -= 1
+            if counter == 0:
+                result = node.val
+                return
+
+            traverse(node.right)
+
+        traverse(root)
+        return result
+```
+
 ## оценку по времени и памяти
-- Time  O(n)
-- Space O(h)
+- Time - O(n) - обходим в худшем случае все вершины
+- Space - O(h) - высота дерева (кол-во рекурсивных вызовов)
 
 ## идея
-- использовать inorder traverse, чтобы получать элементы в отсортированном порядке
-- также использовать счетчик, чтобы не хранить в памяти весь массив
-    - как только счетчик будет равен K - возвразаем результат
+```
+идея для наивного решения
+мы можем воспользоваться золотым правилом inorder traversal - а именно, такой обход в BST дает нам упорядоченный по возрастанию массив. После, получив, мы можем вернуть k-ый наименьший элеменет как idx=k-1, так как индексация по условию с 1.
+
+идея для оптимального решения (без хранения массива)
+мы можем воспользоваться тем же золотым правилом inorder traversal - а именно, такой обход в BST дает нам упорядоченный по возрастанию порядок, однако мы будем декрементировать k и останавливаться когда k будет равным 0.
+```

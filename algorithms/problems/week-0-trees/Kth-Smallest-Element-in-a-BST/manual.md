@@ -8,23 +8,7 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
-class Solution:    
-    def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
-        def inorder(node: TreeNode) -> int:
-            if not node:
-                return
-            result = inorder(node.right)
-            if result is not None:
-                return result
-            nonlocal k
-            k -= 1
-            if k == 0:
-                return node.val
-            return inorder(node.left)
-        return inorder(root)
-```
 
-```python
 class Solution:
     def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
         counter = k
@@ -56,8 +40,12 @@ class Solution:
 
 ## идея
 ```
+свойство inorder для BST
+- при inorder обходе (лево —> нода —> право) - мы получаем элементы в возрастающем порядке
+- при inorder обходе (право —> нода —> лево) - мы получаем элементы в убывающем порядке
+
 идея для наивного решения
-мы можем воспользоваться золотым правилом inorder traversal - а именно, такой обход в BST дает нам упорядоченный по возрастанию массив. После, получив, мы можем вернуть k-ый наименьший элеменет как idx=k-1, так как индексация по условию с 1.
+мы можем воспользоваться золотым правилом inorder traversal (лево - нода - право) - а именно, такой обход в BST дает нам упорядоченный по возрастанию массив. После, получив, мы можем вернуть k-ый наименьший элеменет как idx=k-1, так как индексация по условию с 1.
 
 идея для оптимального решения (без хранения массива)
 мы можем воспользоваться тем же золотым правилом inorder traversal - а именно, такой обход в BST дает нам упорядоченный по возрастанию порядок, однако мы будем декрементировать k и останавливаться когда k будет равным 0.

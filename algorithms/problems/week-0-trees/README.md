@@ -85,6 +85,7 @@ while current:
 <img width="874" alt="Screenshot 2024-12-28 at 16 16 28" src="https://github.com/user-attachments/assets/8695cc71-86b7-4fd1-86f1-4dc1fa178547" />
 <img width="875" alt="Screenshot 2024-12-28 at 16 16 40" src="https://github.com/user-attachments/assets/7dbfa867-6faf-4719-bd1c-743ee22fab54" />
 <img width="880" alt="Screenshot 2024-12-28 at 16 17 02" src="https://github.com/user-attachments/assets/6c29a614-3416-4428-8423-611032140571" />
+<img width="875" alt="Screenshot 2024-12-28 at 16 18 52" src="https://github.com/user-attachments/assets/3fdebc91-7471-496a-917f-008afa508ff4" />
 
 
 

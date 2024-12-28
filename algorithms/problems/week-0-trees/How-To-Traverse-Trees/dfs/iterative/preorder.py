@@ -1,5 +1,11 @@
 # https://www.youtube.com/watch?v=afTpieEZXck&t=279s
 
+"""
+Идея
+  для менеджмента порядка обработки будем использовать стек и порядок 
+
+"""
+
 from typing import Optional
 
 class TreeNode:

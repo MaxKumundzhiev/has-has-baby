@@ -76,3 +76,7 @@ while current:
 ## Референсы
 - https://right-lupin-f79.notion.site/Python-955206472c7e46f3982f6337ce1cc85d
 
+
+## Задачи
+
+

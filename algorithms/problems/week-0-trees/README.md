@@ -78,5 +78,18 @@ while current:
 
 
 ## Задачи
+<img width="878" alt="Screenshot 2024-12-28 at 16 15 26" src="https://github.com/user-attachments/assets/f512fae2-1bb5-4a12-a87a-f33360a6fab1" />
+<img width="871" alt="Screenshot 2024-12-28 at 16 15 39" src="https://github.com/user-attachments/assets/6e538f25-b509-4d95-9fdc-db187233e03c" />
+<img width="875" alt="Screenshot 2024-12-28 at 16 15 55" src="https://github.com/user-attachments/assets/7aaef336-941d-430f-9dda-efbf0cac5efc" />
+<img width="879" alt="Screenshot 2024-12-28 at 16 16 11" src="https://github.com/user-attachments/assets/420516c1-8ce0-4289-aa6e-a375f9fdd41d" />
+<img width="874" alt="Screenshot 2024-12-28 at 16 16 28" src="https://github.com/user-attachments/assets/8695cc71-86b7-4fd1-86f1-4dc1fa178547" />
+<img width="875" alt="Screenshot 2024-12-28 at 16 16 40" src="https://github.com/user-attachments/assets/7dbfa867-6faf-4719-bd1c-743ee22fab54" />
+<img width="880" alt="Screenshot 2024-12-28 at 16 17 02" src="https://github.com/user-attachments/assets/6c29a614-3416-4428-8423-611032140571" />
+
+
+
+
+
+
 
 

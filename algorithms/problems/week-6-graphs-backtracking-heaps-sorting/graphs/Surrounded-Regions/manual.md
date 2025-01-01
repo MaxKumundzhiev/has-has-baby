@@ -1,6 +1,74 @@
 **https://leetcode.com/problems/surrounded-regions/description/**
 
-## правильное решени
+## правильное решение (mine)
+```python
+from typing import List
+
+class Solution:
+    land, water = "O", "X"
+    steps = [
+        (0, 1),
+        (0, -1),
+        (1, 0),
+        (-1, 0),
+    ]
+
+    def cell_is_in_boundaries(
+        self, rowIdx: int, columnIdx: int, board: List[List[str]]
+    ) -> bool:
+        rows, columns = len(board), len(board[0])
+        return 0 <= rowIdx < rows and 0 <= columnIdx < columns
+
+    def traverse(
+        self, rowIdx: int, columnIdx: int, board: List[List[str]], visited: List[List[bool]], swap: bool
+    ) -> None:
+        # Check if the current cell is invalid
+        if (
+            not self.cell_is_in_boundaries(rowIdx, columnIdx, board)
+            or visited[rowIdx][columnIdx] is True
+            or board[rowIdx][columnIdx] == self.water
+        ):
+            return
+
+        # Mark the current cell as visited
+        visited[rowIdx][columnIdx] = True
+        if swap:
+            # Perform the swap "O"->"X" if required
+            board[rowIdx][columnIdx] = self.water
+
+        # Recursively traverse all neighbors
+        for step in self.steps:
+            nextRowIdx, nextColumnIdx = rowIdx + step[0], columnIdx + step[1]
+            self.traverse(
+                nextRowIdx, nextColumnIdx, board, visited, swap
+            )
+
+    def solve(self, board: List[List[str]]) -> None:
+        """
+        Do not return anything, modify board in-place instead.
+        """
+        if not board or not board[0]:
+            return
+
+        rows, columns = len(board), len(board[0])
+        visited = [[False for _ in range(columns)] for _ in range(rows)]
+
+        # Traverse the outer board
+        for columnIdx in range(columns):
+            self.traverse(0, columnIdx, board, visited, swap=False) # Top row
+            self.traverse(rows - 1, columnIdx, board, visited, swap=False) # Bottom row
+
+        for rowIdx in range(rows):
+            self.traverse(rowIdx, 0, board, visited, swap=True) # Left column
+            self.traverse(rowIdx, columns - 1, board, visited, swap=False) # Right column
+
+        # Traverse the inner board
+        for rowIdx in range(1, rows - 1):
+            for columnIdx in range(1, columns - 1):
+                self.traverse(rowIdx, columnIdx, board, visited, swap=True)
+```
+
+## правильное решение (not mine)
 ```python
 class Solution:
     # проверяем не выходят ли индексы за границу массива, True - если не выходим
@@ -47,79 +115,23 @@ class Solution:
                 self.dfs(i, j, visited, board, True)
 ```
 
-## оценку по времени и памяти
-- Time: O(n*m)
-- Space: O(n*m)
-
-## путь по которому вы пришли к решению
-```
-начинаем итерироваться слева направо сверзу вниз до тех пор пока не найдем клетку "O"
-как только нашли клетку "O" - запускаем рекурсивный поиск в глубину (DFS)
-    проверяем если клетка в границах
-    и
-    проверяем если клетка "O"
-    помечаем клетку как "X"
-
-    запускаем поиск вниз
-    запускаем поиск влево
-    запускаем поиск вверх
-    запускаем поиск вправо 
-```
-```python
-class Solution:
-    steps = {
-        "left": [0, -1],
-        "right": [0, 1],
-        "up": [-1, 0],
-        "down": [1, 0]
-    }
-
-    def in_boundaries(self, rowIdx, columnIdx, board):
-        return 0 <= rowIdx < len(board) and 0 <= columnIdx < len(board[0])
-    
-    def on_edge(self, rowIdx, columnIdx, board):
-        return True if rowIdx == len(board)-1 or columnIdx == len(board[0])-1 else False
-
-    def dfs(self, rowIdx, columnIdx, board):
-        cell_in_boundaries = self.in_boundaries(rowIdx, columnIdx, board)
-        cell_is_region = board[rowIdx][columnIdx] == "O"
-        cell_on_edge = self.on_edge(rowIdx, columnIdx, board)
-
-        # check if cell is appropriate
-        if not cell_in_boundaries or not cell_is_region or cell_on_edge:
-           return
-        
-        # mark cell as "visited" which is equal to "X"
-        board[rowIdx][columnIdx] = "X"
-        # down
-        self.dfs(
-            rowIdx + self.steps['down'][0], columnIdx + self.steps['down'][1], board
-        )
-        # left
-        self.dfs(
-            rowIdx + self.steps['left'][0], columnIdx + self.steps['left'][1], board
-        )
-        # up
-        self.dfs(
-            rowIdx + self.steps['up'][0], columnIdx + self.steps['up'][1], board
-        )
-        # right
-        self.dfs(
-            rowIdx + self.steps['right'][0], columnIdx + self.steps['right'][1], board
-        )
-
-    def solve(self, board: List[List[str]]) -> None:
-        """
-        Do not return anything, modify board in-place instead.
-        """
-        rows, columns = len(board), len(board[0])
-        
-        for rowIdx in range(rows):
-            for columnIdx in range(columns):
-                cell = board[rowIdx][columnIdx]
-                if cell == "O":
-                    self.dfs(rowIdx, columnIdx, board)
-        return
-```
-
 ## идея
+```text
+conceptual:
+    также как и в классичкской задаче "number of islands", пользуемся dfs обходом и матрицей visited.
+    дополнительно, нам понадобиться сначала обойти границы нашей борды ()
+
+
+detailed:
+    firstly we gonna traverse "outter" board (boundaries of board),
+    whereas the goal of the traverse is to detect such islands, 
+    which eventually touch the boundaries (how: by marking those as "X")
+
+    afterwards, we gonna traverse "inner" board, marking adjacent islands as "X",
+    for traversal we might use recursive DFS traversal, with directions as left, right, up, down
+    additionaly, each cell we will check whether it is in boundaries of board itself
+    eventhough we well inplace modify board itself, we also will define visited array of m*n to manage which cells were already visisted
+
+Time  O(n*m)
+Space O(n*m)
+```

@@ -29,6 +29,62 @@
 ## Реализация
 Кучу обычно реализуют на динамическом массиве.
 
+- shiftUp (просеять наверх) (time O(log(n)))
+```text
+помним, что у нас есть динамический массив, где мы храним все элменты кучи.
+просеять вверх - это означает довести элемент вверх, чтобы выполнялись все свойства кучи.
+
+как работает
+1. находим индекс родителя:
+    parentIdx = (idx-1) // 2
+2. заходим в родителя и проверяем, если:
+    parentValue = array[parentIdx]
+    для max heap:
+        if currentValue > parentValue:
+            array[idx], array[parentIdx] = parentValue, currentValue
+    для min heap:
+        if currentValue < parentValue:
+            array[idx], array[parentIdx] = parentValue, currentValue
+3. передвигаемся на родителя и запускаем такую же процедуру
+```
+
+- shiftDown (просеять вниз) (time O(log(n)))
+```text
+помним, что у нас есть динамический массив, где мы храним все элменты кучи.
+просеять вниз - это означает довести элемент вниз, чтобы выполнялись все свойства кучи.
+
+как работает
+1. находим индексы левого и правого детей:
+    leftIdx = idx*2-1
+    rightIdx = idx*2-2
+2. заходим в детей и проверяем, если:
+    leftValue = array[leftIdx]
+    rightValue = array[rightIdx]
+    
+    # просеиваим вниз в сторону максимального элемента
+    # ищем МАКСИМАЛЬНЫЙ элемент между детьми и просеиваем в сторону максимально
+    для max heap:
+        maxValue = max(leftValue, rightValue)
+        # двигаемся влево
+        if maxValue == leftValue:
+            array[idx], array[leftIdx] = leftValue, currentValue
+        # двигаемся вправо
+        else:
+            array[idx], array[rightIdx] = rightValue, currentValue
+
+    # просеиваим вниз в сторону минимального элемента
+    # ищем МИНИМАЛЬНЫЙ элемент между детьми и просеиваем в сторону минимального
+    для min heap:
+        minValue = min(leftValue, rightValue)
+        # двигаемся влево
+        if minValue == leftValue:
+            array[idx], array[leftIdx] = leftValue, currentValue
+        # двигаемся вправо
+        else:
+            array[idx], array[rightIdx] = rightValue, currentValue
+3. передвигаемся на min | max ребенка и запускаем такую же процедуру 
+```
+
 - положить в кучу X (time O(log(n)))
 ```
 помним, что у нас есть динамический массив, где мы храним все элменты кучи.
@@ -65,58 +121,7 @@ parent = (i-1) // 2
 ## Min Heap
 ### Recursive
 ```python
-class MinHeap:
-    def __init__(self):
-        self.arr = []
- 
-    def push(self, x):
-        self.arr.append(x)
-        self._shift_up(len(self.arr) - 1)
- 
-    def poptop(self):
-        self.arr[0], self.arr[-1] = self.arr[-1], self.arr[0]
-        self.arr.pop() # удаляем последний элемент
-        self._shift_down(0)
- 
-    def top(self):
-        return self.arr[0]
- 
-    def empty(self):
-        return len(self.arr) == 0
- 
-    def _shift_down(self, i: int):
-        left_child_idx = i * 2 + 1
-        right_child_idx = i * 2 + 2
-        
-        if left_child_idx >= len(self.arr):
-            # нет ни левого ни правого ребенка - это лист
-            # т к куча заполняется последовательно то если нет левого ребенка то и правого быть не может
-            return
-        # если тут значит как минимум есть левый ребенок
-        # next_idx - индекс с которым будем пробывать swap текущего элемента
-        # т е это индекс ребенка который имеет минимальное значение (или максимальное для кучи на максимум)
-        next_idx, next_min_val = left_child_idx, self.arr[left_child_idx]
- 
-        # обновляем next_idx если правый ребенок есть и значение в нем меньше чем в левом
-        # P.S. (для кучи на максимум нужно менять условие)
-        if right_child_idx < len(self.arr) and self.arr[right_child_idx] < next_min_val:
-            next_idx, next_min_val = right_child_idx, self.arr[right_child_idx]
-    
-        current_val = self.arr[i]
-        # если значение в одном из детей меньше чем в текущей вершине, значит меняем местами и просеиваем дальше
-        if next_min_val < current_val:
-            self.arr[i], self.arr[next_idx] = self.arr[next_idx], self.arr[i]
-            self._shift_down(next_idx)
- 
-    def _shift_up(self, i: int):
-        if i == 0:
-            return
-        parent_idx = (i - 1) // 2
-        # если родитель больше, то просеиваем т к куча на минимум
-        if self.arr[parent_idx] > self.arr[i]: # для кучи на макимум менять уловие нужно
-            # меняем местами значения и продолжаем просеивание
-            self.arr[parent_idx], self.arr[i] = self.arr[i], self.arr[parent_idx]
-            self._shift_up(parent_idx)
+
 ```
 
 ### Iterative

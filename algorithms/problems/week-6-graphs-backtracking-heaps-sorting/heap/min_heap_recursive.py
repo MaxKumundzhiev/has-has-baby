@@ -54,13 +54,31 @@ class MinHeap:
         if is_empty:
             raise Exception
         
-        leftIdx, rightIdx = (idx*2)-1, (idx*2)-2
-        # base case for return when left idx is grater than len of array
-        if leftIdx >= len(self.array):
+        leftIdx, rightIdx = (idx*2)+1, (idx*2)+2
+        # we need to verify, whether we have left and/or right children
+        leftExists = True if leftIdx <= len(self.array)-1 else False
+        rightExists = True if rightIdx <= len(self.array)-1 else False
+
+        # base case, meaning we are at the leaf (or end of the array)
+        # becasue heap is built from left to right always
+        if not leftExists:
             return
         
-        # prepare ...
-        # @TODO: finish shift down logic
+        # if just left exists
+        if leftExists and not rightExists:
+            if self.array[leftIdx] < self.array[rightIdx]:
+                self.array[idx], self.array[leftIdx] = self.array[leftIdx], self.array[idx]
+                nextIdx = leftIdx
+        # if both exists
+        if leftExists and rightExists:
+            # for MinHeap we need to shift down to smallest value between left and right
+            if self.array[leftIdx] < self.array[rightIdx]:
+                self.array[idx], self.array[leftIdx] = self.array[leftIdx], self.array[idx]
+                nextIdx = leftIdx
+            else:
+                self.array[idx], self.array[rightIdx] = self.array[rightIdx], self.array[idx]
+                nextIdx = rightIdx
+        self.shiftDown(idx=nextIdx)
     
     def add(self, value: int) -> None:
         """

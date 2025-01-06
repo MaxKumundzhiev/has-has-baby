@@ -55,8 +55,8 @@
 
 как работает
 1. находим индексы левого и правого детей:
-    leftIdx = idx*2-1
-    rightIdx = idx*2-2
+    leftIdx = idx*2+1
+    rightIdx = idx*2+2
 2. заходим в детей и проверяем, если:
     leftValue = array[leftIdx]
     rightValue = array[rightIdx]

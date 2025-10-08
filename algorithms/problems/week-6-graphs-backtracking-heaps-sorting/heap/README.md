@@ -116,7 +116,7 @@
 leftChild = i*2 + 1
 rightChild = i*2 + 2
 parent = (i-1) // 2
-
+```
 
 ## Общие заметки и реализация
 ```python
@@ -214,13 +214,4 @@ class MaxHeap:
             self.sift_down(largest_child_idx)
 
         return None
-```
-
-
-
-
-
-
-
-
 ```

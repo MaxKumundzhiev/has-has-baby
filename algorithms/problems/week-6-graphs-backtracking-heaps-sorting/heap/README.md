@@ -22,14 +22,14 @@
 - удалить самый большой | маленький элемент
 - heapify - это процедура, которая позволяет из массива сделать куча на максимум или на минимум
 - дополнительно:
-    - shiftUp
-    - shiftDown
+    - siftUp
+    - siftDown
 
 
 ## Реализация
 Кучу обычно реализуют на динамическом массиве.
 
-- shiftUp (просеять наверх) (time O(log(n)))
+- sifttUp (просеять наверх) (time O(log(n)))
 ```text
 помним, что у нас есть динамический массив, где мы храним все элменты кучи.
 просеять вверх - это означает довести элемент вверх, чтобы выполнялись все свойства кучи.
@@ -48,7 +48,7 @@
 3. передвигаемся на родителя и запускаем такую же процедуру
 ```
 
-- shiftDown (просеять вниз) (time O(log(n)))
+- siftDown (просеять вниз) (time O(log(n)))
 ```text
 помним, что у нас есть динамический массив, где мы храним все элменты кучи.
 просеять вниз - это означает довести элемент вниз, чтобы выполнялись все свойства кучи.
@@ -111,9 +111,116 @@
 рабоатет как: просеить все элементы вниз
 ```
 
-**формулы для поиска девого и правого ребенка на массвие**
+**формулы для поиска индексов на массвие**
 ```text
 leftChild = i*2 + 1
 rightChild = i*2 + 2
 parent = (i-1) // 2
+
+
+## Общие заметки и реализация
+```python
+class MaxHeap:
+    def __init__(self):
+        self.container = []
+
+    def __len__(self) -> int:
+        return len(self.container)
+
+    def __bool__(self) -> bool:
+        return len(self.container) != 0
+
+    # Time O(log(n))
+    def insert(self, value: int) -> None:
+        self.container.append(value)
+        if len(self.container) > 1:
+            idx = len(self.container) - 1
+            self.sift_up(idx=idx)
+
+    # Time O(log(n))
+    def remove(self, idx: int) -> None:
+        last_idx = len(self.container) - 1
+        if idx == last_idx:
+            self.container.pop()
+            return
+
+        self.container[idx], self.container[last_idx] = self.container[last_idx], self.container[idx]
+        self.container.pop()
+        # After swap & pop, decide to sift up or sift down:
+        if idx < len(self.container):
+            # Try sift down then sift up if needed:
+            self.sift_down(idx=idx)
+            self.sift_up(idx=idx)
+
+    # Time O(1)
+    def peek_top(self) -> int | None:
+        if not self.container:
+            return None
+        return self.container[0]
+
+    # Time O(log(n))
+    def pop_top(self) -> int | None:
+        if not self.container:
+            return None
+
+        first_idx, last_idx = 0, len(self.container) - 1
+        top_value = self.container[first_idx]
+        
+        self.container[first_idx], self.container[last_idx] = self.container[last_idx], self.container[first_idx]
+        self.container.pop(last_idx)
+
+        if self.container:
+            self.sift_down(idx=first_idx)
+        
+        return top_value
+
+    # Time O(log(n))
+    def sift_up(self, idx: int) -> None:
+        top_idx, parent_idx, child_idx = 0, (idx - 1) // 2, idx
+        child_value, parent_value = self.container[child_idx], self.container[parent_idx]
+
+        # base case (1) element is top (root)
+        if idx == top_idx:
+            return None
+        
+        # base case (2) heap condition is satisfied
+        # MaxHeap - parentValue >= childValue
+        # MinHeap - parentValue <= childValue
+        if parent_value >= child_value:
+            return None
+
+        # otherwise, continue siftUp procedure
+        self.container[child_idx], self.container[parent_idx] = self.container[parent_idx], self.container[child_idx]
+        self.sift_up(idx=parent_idx)
+        return None
+
+    # Time O(log(n))
+    def sift_down(self, idx: int) -> None:
+        bottom_idx = len(self.container) - 1
+        left_child_idx, right_child_idx = 2 * idx + 1, 2 * idx + 2
+        
+        # Если нет потомков — заканчиваем
+        if left_child_idx > bottom_idx:
+            return
+        
+        # Находим индекс большего потомка (если есть правый)
+        largest_child_idx = left_child_idx
+        if right_child_idx <= bottom_idx and self.container[right_child_idx] > self.container[left_child_idx]:
+            largest_child_idx = right_child_idx
+        
+        # Если текущий элемент меньше большего потомка — меняем и рекурсивно вызываем sift_down для потомка
+        if self.container[idx] < self.container[largest_child_idx]:
+            self.container[idx], self.container[largest_child_idx] = self.container[largest_child_idx], self.container[idx]
+            self.sift_down(largest_child_idx)
+
+        return None
+```
+
+
+
+
+
+
+
+
 ```

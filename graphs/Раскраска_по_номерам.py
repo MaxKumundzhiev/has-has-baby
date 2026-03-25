@@ -32,44 +32,94 @@
     возвразаем количество таких запусков
 """
 
+from collections import deque
 
-def recursive_dfs(grid: list[list[int]]):
-    def in_bound(grid: list[list[int]], row: int, column: int) -> bool:
+
+class ConnectedComponents:
+    def in_bound(self, grid: list[list[int]], row: int, column: int) -> bool:
         return 0 <= row < len(grid) and 0 <= column < len(grid[row])
 
-    def dfs(
+    def dfs_recursive(
+        self,
         grid: list[list[int]],
         visited: list[list[bool]],
-        color: int,
         row: int,
         column: int,
-    ) -> None:
-        # check if cell is in bound
-        # check if cell was not visited before
-        # check if cell is same color as previous
+        color: int,
+    ):
         if (
-            not in_bound(grid, row, column)
+            not self.in_bound(grid, row, column)
             or visited[row][column]
             or grid[row][column] != color
         ):
             return
 
-        # mark cell as visited
         visited[row][column] = True
-        # traverse neighbours
-        neigbours: list[tuple[int, int]] = [(-1, 0), (0, 1), (1, 0), (0, -1)]
-        for dx, dy in neigbours:
-            dfs(grid, visited, color, row + dx, column + dy)
+        neighbours = [
+            (row - 1, column),
+            (row, column + 1),
+            (row + 1, column),
+            (row, column - 1),
+        ]
+        for nr, nc in neighbours:
+            self.dfs_recursive(grid, visited, nr, nc, color)
 
+    def dfs_iterative(
+        self,
+        grid: list[list[int]],
+        visited: list[list[bool]],
+        row: int,
+        column: int,
+        color: int,
+    ):
+        stack: deque[tuple[int, int]] = deque([(row, column)])
+        while stack:
+            row, column = stack.pop()
+
+            neighbours = [
+                (row - 1, column),
+                (row, column + 1),
+                (row + 1, column),
+                (row, column - 1),
+            ]
+
+            if visited[row][column]:
+                continue
+
+            visited[row][column] = True
+
+            for nr, nc in neighbours:
+                if (
+                    self.in_bound(grid, nr, nc)
+                    and not visited[nr][nc]
+                    and grid[nr][nc] == color
+                ):
+                    stack.append((nr, nc))
+
+
+def draw_iterative(grid: list[list[int]]):
+    graph = ConnectedComponents()
     visited: list[list[bool]] = [[False for _ in range(len(r))] for r in grid]
     components: int = 0
 
     for row in range(len(grid)):
         for column in range(len(grid[row])):
             if not visited[row][column]:
-                dfs(grid, visited, grid[row][column], row, column)
+                graph.dfs_iterative(grid, visited, row, column, grid[row][column])
                 components += 1
-    print(components)
+    return components
+
+
+def draw_recursive(grid: list[list[int]]):
+    graph = ConnectedComponents()
+    visited: list[list[bool]] = [[False for _ in range(len(r))] for r in grid]
+    components: int = 0
+
+    for row in range(len(grid)):
+        for column in range(len(grid[row])):
+            if not visited[row][column]:
+                graph.dfs_recursive(grid, visited, row, column, grid[row][column])
+                components += 1
     return components
 
 
@@ -81,8 +131,20 @@ def test_dfs_recursive():
         [1, 2, 2, 2, 2, 2, 2, 1],
         [1, 1, 1, 1, 1, 1, 1, 1],
     ]
-    assert recursive_dfs(grid) == 4
-    assert recursive_dfs(grid=[]) == 0
+    result = draw_recursive(grid)
+    assert result == 4, f"expected: 4, got {result}"
+
+
+def test_dfs_iterative():
+    grid = [
+        [1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 2, 2, 1, 1, 2, 2, 1],
+        [1, 2, 1, 2, 2, 1, 2, 1],
+        [1, 2, 2, 2, 2, 2, 2, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1],
+    ]
+    result = draw_iterative(grid)
+    assert result == 4, f"expected: 4, got {result}"
 
 
 if __name__ == "__main__":

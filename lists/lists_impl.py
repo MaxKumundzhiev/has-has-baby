@@ -33,7 +33,6 @@ from typing import Generic, TypeVar, Iterable, cast, Protocol
 
 
 class Comparable(Protocol):
-
     def __lt__(self, other: "Comparable") -> bool: ...
 
 

@@ -29,6 +29,26 @@ class IteratorImpl(Generic[T]):
         return val
 
 
+"""
+interator, which on count down from start position;
+"""
+
+
+class Countdown:
+    def __init__(self, start: int | None = None) -> None:
+        self._curr = start
+
+    def __iter__(self) -> "Countdown":
+        return self
+
+    def __next__(self) -> int:
+        if self._curr is None or self._curr < 0:
+            raise StopIteration
+        val: int = self._curr
+        self._curr -= 1
+        return val
+
+
 if __name__ == "__main__":
     it = IteratorImpl([1, 2, 3, 4])
     for v in it:
@@ -39,3 +59,7 @@ if __name__ == "__main__":
     print(next(it))
     print(next(it))
     print(next(it))
+
+    cnt = Countdown(10)
+    for i in cnt:
+        print(i)

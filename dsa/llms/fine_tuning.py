@@ -102,14 +102,27 @@ def prepare_dataset(logs: list[str]) -> dict:
     Раздели на train (80%) и val (20%) — стратифицированно по категории.
     Верни {"train": [...], "val": [...], "stats": {категория: count}}
     """
-    dataset: list[dict] = []
+    buckets: dict[str, list[dict]] = defaultdict(list)
+    stats = defaultdict(int)
+    # шаг 1 — собираем все примеры с категориями
+    # шаг 2 — группируем по категории
     for log in logs:
         category: str = classify(log, CATEGORIES)
         normalized: str = normalize(log)
         example: dict = build_training_example(
             normalized, category, RESPONSES[category]
         )
-        dataset.append(example)
+        buckets[category].append(example)
+        stats[category] += 1
+
+    # шаг 3 — из каждого bucket берём 80% в train, 20% в val
+    train, val = [], []
+    for category, items in buckets.items():
+        split_idx = max(1, int(len(items) * 0.8))
+        train += items[:split_idx]
+        val += items[split_idx:]
+
+    return {"train": train, "val": val, "stats": dict(stats)}
 
 
 dataset = prepare_dataset(raw_logs)
